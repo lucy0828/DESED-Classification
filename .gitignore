@@ -1,0 +1,9 @@
+## Ignore Directory ##
+/__pycache__/
+/.ipynb_checkpoints/
+
+## Ignore File ##
+debug.log
+
+## Ignore Jupyter Notebook ##
+*.ipynb
