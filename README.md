@@ -44,3 +44,67 @@ Files are sliced into 1 second delta time and saved in each class directories in
 Models include Conv1D, Conv2D, and LSTM. 128 log mel-banks are extracted with 25ms window frame and a stride of 10ms.
 
 ## Train
+Models are selected and trained with training samples. Trained models are saved in `models` directory. 
+Accuracy and loss histories are saved in `logs` directory.
+
+## Predict
+Predictions are made with evaluation samples and saved in `logs` directory as numpy array. 
+Prediction logs are used for confusion matrix. 
+
+### Confusion Matrix
+#### Soundbank Trained Model
+- Conv1D
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/46836844/119799366-f4ab8800-bf16-11eb-95dd-f2c9eb2bf010.png" width="50%">
+</p>
+
+- Conv2D
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/46836844/119799493-14db4700-bf17-11eb-8182-b1bdad8afd40.png" width="50%">
+</p>
+
+- LSTM
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/46836844/119799540-1f95dc00-bf17-11eb-8a4f-06e17a0209ea.png" width="50%">
+</p>
+
+#### Recorded Trained Model
+- Conv1D
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/46836844/119799833-6aafef00-bf17-11eb-862c-b5172f681d14.png" width="50%">
+</p>
+
+- Conv2D
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/46836844/119799605-30dee880-bf17-11eb-9b5c-ec80ae1625d8.png" width="50%">
+</p>
+
+- LSTM
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/46836844/119799636-389e8d00-bf17-11eb-8702-1eeec7f178f9.png" width="50%">
+</p>
+
+#### Thingy:52 Trained Model
+- Conv1D
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/46836844/119800028-98953380-bf17-11eb-98b6-03985dbdb077.png" width="50%">
+</p>
+
+- Conv2D
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/46836844/119799702-49e79980-bf17-11eb-87b3-67f8f6e13996.png" width="50%">
+</p>
+
+- LSTM
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/46836844/119799726-510ea780-bf17-11eb-8db8-42402f0f89eb.png" width="50%">
+</p>
