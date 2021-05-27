@@ -106,18 +106,21 @@ def make_predictions(args):
         wav, rate = librosa.load(wav_fn, args.sr)
         mask, env = envelope(wav, rate, threshold=args.threshold)
         clean_wav = wav[mask]
+        print(clean_wav.reshape(-1,1))
         step = int(args.sr*args.dt)
         batch = []
 
         for i in range(0, clean_wav.shape[0], step):
             sample = clean_wav[i:i+step]
             sample = sample.reshape(-1, 1)
+            print(sample)
             if sample.shape[0] < step:
                 tmp = np.zeros(shape=(step, 1), dtype=np.float32)
                 tmp[:sample.shape[0],:] = sample.flatten().reshape(-1, 1)
                 sample = tmp
             batch.append(sample)
         X_batch = np.array(batch, dtype=np.float32)
+        print(X_batch)
         y_pred = model.predict(X_batch)
         y_mean = np.mean(y_pred, axis=0)
         print(np.round_(y_mean, 2))
@@ -138,7 +141,7 @@ if __name__ == '__main__':
                         help='model file to make predictions')
     parser.add_argument('--pred_fn', type=str, default='y_pred',
                         help='fn to write predictions in logs dir')
-    parser.add_argument('--src_dir', type=str, default='../Thingy52/testdata',
+    parser.add_argument('--src_dir', type=str, default='../Thingy52/wavfiles',
                         help='directory containing wavfiles to predict')
     parser.add_argument('--fn', type=str, default='7064-6-0-0.wav',
                         help='file name to predict')

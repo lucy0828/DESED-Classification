@@ -13,7 +13,6 @@
 #     name: python3
 # ---
 
-# +
 from tensorflow.keras import layers
 from tensorflow.keras.layers import TimeDistributed, LayerNormalization
 from tensorflow.keras.models import Model
@@ -22,12 +21,10 @@ import kapre
 from kapre.composed import get_melspectrogram_layer
 import tensorflow as tf
 import os
-
-
 def Conv1D(N_CLASSES=10, SR=16000, DT=1.0):
     input_shape = (int(SR*DT), 1)
     i = get_melspectrogram_layer(input_shape=input_shape,
-                                 n_mels=64,
+                                 n_mels=128,
                                  pad_end=True,
                                  n_fft=512,
                                  win_length=400,
@@ -60,7 +57,7 @@ def Conv1D(N_CLASSES=10, SR=16000, DT=1.0):
 def Conv2D(N_CLASSES=10, SR=16000, DT=1.0):
     input_shape = (int(SR*DT), 1)
     i = get_melspectrogram_layer(input_shape=input_shape,
-                                 n_mels=64,
+                                 n_mels=128,
                                  pad_end=True,
                                  n_fft=512,
                                  win_length=400,
@@ -93,7 +90,7 @@ def Conv2D(N_CLASSES=10, SR=16000, DT=1.0):
 def LSTM(N_CLASSES=10, SR=16000, DT=1.0):
     input_shape = (int(SR*DT), 1)
     i = get_melspectrogram_layer(input_shape=input_shape,
-                                     n_mels=64,
+                                     n_mels=128,
                                      pad_end=True,
                                      n_fft=512,
                                      win_length=400,
@@ -125,7 +122,3 @@ def LSTM(N_CLASSES=10, SR=16000, DT=1.0):
                   metrics=['accuracy'])
 
     return model
-
-# -
-
-

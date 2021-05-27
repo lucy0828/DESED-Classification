@@ -160,11 +160,11 @@ split audio files in samples with delta time
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Cleaning audio data')
-    parser.add_argument('--src_root', type=str, default='../Thingy52/wavfiles',
+    parser.add_argument('--src_root', type=str, default='../DESED/data/desed_labeled/soundbank_foreground/train',
                         help='directory of audio files in total duration')
-    parser.add_argument('--dst_root', type=str, default='../Thingy52/testdata',
+    parser.add_argument('--dst_root', type=str, default='../DESED/data/desed_labeled/soundbank_foreground/train_clean',
                         help='directory to put audio files split by delta_time')
-    parser.add_argument('--delta_time', '-dt', type=float, default=3.0,
+    parser.add_argument('--delta_time', '-dt', type=float, default=1.0,
                         help='time in seconds to sample audio')
     parser.add_argument('--sr', type=int, default=16000,
                         help='rate to downsample audio')
@@ -174,15 +174,15 @@ if __name__ == '__main__':
     parser.add_argument('--threshold', type=str, default=0.003,
                         help='threshold magnitude for np.float32 dtype')
     
-    parser.add_argument('--desed_root', type=str, default='../DESED/data/desed_real/audio/eval/public',
+    parser.add_argument('--desed_root', type=str, default='../DESED/data/dcase21_synth/audio/evaluation/synthetic21_evaluation/soundscapes',
                         help='directory of desed real audio files')
-    parser.add_argument('--desed_label_root', type=str, default='../DESED/data/desed_real/metadata/eval/public.tsv',
+    parser.add_argument('--desed_label_root', type=str, default='../DESED/data/dcase21_synth/metadata/evaluation/synhtetic21_evaluation/soundscapes.tsv',
                         help='directory and filename of desed metadata label')
     args, _ = parser.parse_known_args()
 
     #test_threshold(args)
-    #split_wavs(args)
-    desed(args)
+    split_wavs(args)
+    #desed(args)
 
 
 # +
@@ -201,12 +201,18 @@ print("Total sample files: " + str(count))
 count sample files in each class folders
 '''
 count = 0
-desed_class = ['Speech', 'Dog', 'Dishes', 'Alarm_bell_ringing', 'Cat', 'Running_water', 
-                   'Blender', 'Frying', 'Vacuum_cleaner', 'Electric_shaver_toothbrush']
+desed_class = ['Dishes', 'Running_water', 'Frying', 'Vacuum_cleaner']
 for i in desed_class:
-    list = os.listdir("../DESED/data/desed_real/audio/eval/" + i) # dir is your directory path
+    list = os.listdir("../DESED/data/desed_labeled/test/data/real/" + i) # dir is your directory path
     print(i + ": " + str(len(list)))
     count = count + len(list)
 
 print("Total sample files: " + str(count))
+
+
+# -
+
+
+
+
 
