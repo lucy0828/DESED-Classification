@@ -89,7 +89,7 @@ def train(args):
               'conv2d':Conv2D(**params),
               'lstm':  LSTM(**params)}
     assert model_type in models.keys(), '{} not an available model'.format(model_type)
-    csv_path = os.path.join('../DESED/data/desed_labeled/test/logs', '{}_history.csv'.format(model_type))
+    csv_path = os.path.join('../Thingy52/combined/logs', '{}_history.csv'.format(model_type))
 
     wav_paths = glob('{}/**'.format(src_root), recursive=True)
     wav_paths = [x.replace(os.sep, '/') for x in wav_paths if '.wav' in x]
@@ -102,7 +102,7 @@ def train(args):
     # Train Test Split
     wav_train, wav_val, label_train, label_val = train_test_split(wav_paths,
                                                                   labels,
-                                                                  test_size=0.01,
+                                                                  test_size=0.2,
                                                                   random_state=0)
 
     assert len(label_train) >= args.batch_size, 'Number of train samples must be >= batch_size'
@@ -120,7 +120,7 @@ def train(args):
                        params['N_CLASSES'], batch_size=batch_size)
     
     model = models[model_type]
-    cp = ModelCheckpoint('../DESED/data/desed_labeled/test/models/{}.h5'.format(model_type), monitor='val_loss',
+    cp = ModelCheckpoint('../Thingy52/combined/models/{}.h5'.format(model_type), monitor='val_loss',
                          save_best_only=True, save_weights_only=False,
                          mode='auto', save_freq='epoch', verbose=1)
     csv_logger = CSVLogger(csv_path, append=False)
@@ -137,9 +137,9 @@ def train(args):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Audio Classification Training')
-    parser.add_argument('--model_type', type=str, default='lstm',
+    parser.add_argument('--model_type', type=str, default='conv1d',
                         help='model to run. i.e. conv1d, conv2d, lstm')
-    parser.add_argument('--src_root', type=str, default='../DESED/data/desed_labeled/test/data/thingy52/train',
+    parser.add_argument('--src_root', type=str, default='../Thingy52/combined/train',
                         help='directory of audio files in total duration')
     parser.add_argument('--batch_size', type=int, default=16,
                         help='batch size')
@@ -150,3 +150,5 @@ if __name__ == '__main__':
     args, _ = parser.parse_known_args()
 
     train(args)
+
+
