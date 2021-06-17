@@ -69,9 +69,9 @@ def make_predictions(args):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Audio Classification Training')
-    parser.add_argument('--model_fn', type=str, default='../Thingy52/combined/models/conv1d.h5',
+    parser.add_argument('--model_fn', type=str, default='../Thingy52/combined/models/lstm.h5',
                         help='model file to make predictions')
-    parser.add_argument('--pred_fn', type=str, default='conv1d_y_pred',
+    parser.add_argument('--pred_fn', type=str, default='lstm_y_pred',
                         help='fn to write predictions in logs dir')
     parser.add_argument('--src_dir', type=str, default='../Thingy52/combined/validation',
                         help='directory containing wavfiles to predict')
@@ -87,7 +87,7 @@ if __name__ == '__main__':
 
 # +
 # Confusion Matrix
-y_pred = np.load('../Thingy52/combined/logs/conv1d_y_pred.npy')
+y_pred = np.load('../Thingy52/combined/logs/lstm_y_pred.npy')
 
 wav_paths = glob('{}/**'.format('../Thingy52/combined/validation'), recursive=True)
 wav_paths = sorted([x.replace(os.sep, '/') for x in wav_paths if '.wav' in x])
@@ -104,7 +104,7 @@ conf_mat = confusion_matrix(y_true_labels, y_pred_labels, labels=unique_labels, 
 df_cm = pd.DataFrame(conf_mat, index = name_labels,
                      columns = name_labels)
 plt.figure(figsize = (10,8))
-plt.title('Confusion Matrix')
+plt.title('Conv2D Confusion Matrix')
 sns.heatmap(df_cm, annot=True, cmap='viridis')
 plt.show()
 # -

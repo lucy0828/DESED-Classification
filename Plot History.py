@@ -17,8 +17,7 @@ import os
 import matplotlib.pyplot as plt
 import pandas as pd
 
-log_csvs = sorted(os.listdir('../Thingy52/combined/logs'))
-print(log_csvs)
+log_csvs = ['conv1d_history.csv', 'conv2d_history.csv', 'lstm_history.csv']
 
 labels = ['Conv 1D', 'Conv 2D', 'LSTM']
 colors = ['r', 'g', 'b']
@@ -36,7 +35,7 @@ for (fn, label, c) in zip(log_csvs, labels, colors):
     plt.plot(df.accuracy, color=c, label=label+' train')
     plt.plot(df.val_accuracy, ls='--', color=c, label=label+' test')
     
-plt.legend(loc='lower right')
+plt.legend(loc='lower right',fontsize=18)
     
 plt.show()
 # -
