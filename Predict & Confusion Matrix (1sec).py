@@ -87,25 +87,25 @@ if __name__ == '__main__':
 
 # +
 # Confusion Matrix
-y_pred = np.load('../Thingy52/combined/logs/lstm_y_pred.npy')
+y_pred = np.load('../Thingy52/combined/logs/conv1d_y_pred.npy')
 
 wav_paths = glob('{}/**'.format('../Thingy52/combined/validation'), recursive=True)
 wav_paths = sorted([x.replace(os.sep, '/') for x in wav_paths if '.wav' in x])
 classes = sorted(os.listdir('../Thingy52/combined/validation'))
 labels = [os.path.split(x)[0].split('/')[-1] for x in wav_paths]
 unique_labels = np.unique(labels)
+name_labels = ['speech','tv','drop','door','water','toilet','brush teeth','vacuum','chop','fry/boil','dish']
 le = LabelEncoder()
 y_true = le.fit_transform(labels)
 y_pred_labels = [classes[x] for x in y_pred]
 y_true_labels = [classes[x] for x in y_true]
 
 conf_mat = confusion_matrix(y_true_labels, y_pred_labels, labels=unique_labels, normalize = 'true')
-df_cm = pd.DataFrame(conf_mat, index = unique_labels,
-                     columns = unique_labels)
+df_cm = pd.DataFrame(conf_mat, index = name_labels,
+                     columns = name_labels)
 plt.figure(figsize = (10,8))
 plt.title('Confusion Matrix')
 sns.heatmap(df_cm, annot=True, cmap='viridis')
 plt.show()
 # -
-
 
