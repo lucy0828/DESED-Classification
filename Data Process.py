@@ -23,7 +23,7 @@ import shutil
 
 for dirpath, dirnames, files in os.walk('../Thingy52/test2/wavfiles'):
     for filename in files:
-        for i in range(0,10):
+        for i in range(0,11):
             if fnmatch.fnmatch(filename, '*-*-*-'+str(i)+'.wav'):
                 shutil.copy2(dirpath+'/'+filename, '../Thingy52/test2/samples/'+str(i)+'/')
 
@@ -157,6 +157,10 @@ Function to split and save train and test set
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
+import sys
+import numpy
+numpy.set_printoptions(threshold=sys.maxsize)
+
 def split_train_test(args):
     src_root = args.src_root
     dst_root = args.dst_root
@@ -168,11 +172,10 @@ def split_train_test(args):
 
     wav_paths = glob('{}/**'.format(src_root), recursive=True)
     wav_paths = [x.replace(os.sep, '/') for x in wav_paths if '.wav' in x]
-    classes = sorted(os.listdir(args.src_root))
+    classes = os.listdir(args.src_root)
     le = LabelEncoder()
     le.fit(classes)
     labels = [os.path.split(x)[0].split('/')[-1] for x in wav_paths]
-    labels = le.transform(labels)
     
     # Train Test Split
     wav_train, wav_val, label_train, label_val = train_test_split(wav_paths,
@@ -208,7 +211,7 @@ if __name__ == '__main__':
     parser.add_argument('--sr', type=int, default=16000,
                         help='rate to downsample audio')
 
-    parser.add_argument('--fn', type=str, default='210418-094215-600-640-2.wav',
+    parser.add_argument('--fn', type=str, default='210614-221146-18-29-10.wav',
                         help='file to plot over time to check magnitude')
     parser.add_argument('--threshold', type=str, default=0.003,
                         help='threshold magnitude for np.float32 dtype')
@@ -230,9 +233,9 @@ if __name__ == '__main__':
 count sample files in each class folders
 '''
 count = 0
-for i in range(0,10):
-    list = os.listdir("../Thingy52/combined/validation/" + str(i)) # dir is your directory path
-    print("../Thingy52/test2/validation/" + str(i) + ": " + str(len(list)))
+for i in range(0,11):
+    list = os.listdir("../Thingy52/combined/clean/" + str(i)) # dir is your directory path
+    print("../Thingy52/combined/clean/" + str(i) + ": " + str(len(list)))
     count = count + len(list)
 
 print("Total sample files: " + str(count))
@@ -248,5 +251,8 @@ for i in desed_class:
     count = count + len(list)
 
 print("Total sample files: " + str(count))
+
+
+
 
 

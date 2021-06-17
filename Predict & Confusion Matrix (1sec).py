@@ -61,7 +61,7 @@ def make_predictions(args):
         print('Actual class: {}, Predicted class: {}'.format(real_class, classes[y_pred]))
         results.append(y_pred)
 
-    np.save(os.path.join('../DESED/data/desed_labeled/test/logs/thingy52', args.pred_fn), np.array(results))
+    np.save(os.path.join('../Thingy52/combined/logs', args.pred_fn), np.array(results))
 
 
 # -
@@ -69,11 +69,11 @@ def make_predictions(args):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='Audio Classification Training')
-    parser.add_argument('--model_fn', type=str, default='../DESED/data/desed_labeled/test/models/thingy52/lstm.h5',
+    parser.add_argument('--model_fn', type=str, default='../Thingy52/combined/models/conv1d.h5',
                         help='model file to make predictions')
-    parser.add_argument('--pred_fn', type=str, default='y_pred',
+    parser.add_argument('--pred_fn', type=str, default='conv1d_y_pred',
                         help='fn to write predictions in logs dir')
-    parser.add_argument('--src_dir', type=str, default='../DESED/data/desed_labeled/test/data/thingy52/evaluation',
+    parser.add_argument('--src_dir', type=str, default='../Thingy52/combined/validation',
                         help='directory containing wavfiles to predict')
     parser.add_argument('--dt', type=float, default=1.0,
                         help='time in seconds to sample audio')
@@ -87,11 +87,11 @@ if __name__ == '__main__':
 
 # +
 # Confusion Matrix
-y_pred = np.load('../DESED/data/desed_labeled/test/logs/thingy52/lstm_y_pred.npy')
+y_pred = np.load('../Thingy52/combined/logs/lstm_y_pred.npy')
 
-wav_paths = glob('{}/**'.format('../DESED/data/desed_labeled/test/data/thingy52/evaluation'), recursive=True)
+wav_paths = glob('{}/**'.format('../Thingy52/combined/validation'), recursive=True)
 wav_paths = sorted([x.replace(os.sep, '/') for x in wav_paths if '.wav' in x])
-classes = sorted(os.listdir('../DESED/data/desed_labeled/test/data/thingy52/evaluation'))
+classes = sorted(os.listdir('../Thingy52/combined/validation'))
 labels = [os.path.split(x)[0].split('/')[-1] for x in wav_paths]
 unique_labels = np.unique(labels)
 le = LabelEncoder()

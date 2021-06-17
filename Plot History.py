@@ -17,28 +17,30 @@ import os
 import matplotlib.pyplot as plt
 import pandas as pd
 
-log_csvs = sorted(os.listdir('./logs'))
+log_csvs = sorted(os.listdir('../Thingy52/combined/logs'))
 print(log_csvs)
 
 labels = ['Conv 1D', 'Conv 2D', 'LSTM']
-colors = ['r', 'm', 'c']
+colors = ['r', 'g', 'b']
 
 # +
-fig, ax = plt.subplots(1, 3, sharey=True, figsize=(16,5))
+fig = plt.figure(figsize=(15, 10))
+plt.xlabel('Epochs',fontsize=18)
+plt.ylabel('Accuracy',fontsize=18)
+plt.axis([0, 20, 0.60, 1.00])
 
-for i, (fn, label, c) in enumerate(zip(log_csvs, labels, colors)):
-    csv_path = os.path.join('./logs', fn)
+
+for (fn, label, c) in zip(log_csvs, labels, colors):
+    csv_path = os.path.join('../Thingy52/combined/logs', fn)
     df = pd.read_csv(csv_path)
-    ax[i].set_title(label, size=16)
-    ax[i].plot(df.accuracy, color=c, label='train')
-    ax[i].plot(df.val_accuracy, ls='--', color=c, label='test')
-    ax[i].legend(loc='upper left')
-    ax[i].tick_params(axis='both', which='major', labelsize=12)
-    ax[i].set_ylim([0,1.0])
-
-fig.text(0.5, 0.02, 'Epochs', ha='center', size=14)
-fig.text(0.08, 0.5, 'Accuracy', va='center', rotation='vertical', size=14)
+    plt.plot(df.accuracy, color=c, label=label+' train')
+    plt.plot(df.val_accuracy, ls='--', color=c, label=label+' test')
+    
+plt.legend(loc='lower right')
+    
 plt.show()
 # -
+
+
 
 
