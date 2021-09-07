@@ -1,5 +1,5 @@
-# ADL-Classification
-Sound Event Detection for Activities of Daily Living with Audio Dataset and Deep Learning Model (Conv1D, Conv2D, LSTM)
+# DESED Classification
+Sound Event Classification for DESED Dataset and Activities of Daily Living Dataset with Deep Learning Models (Conv1D, Conv2D, LSTM)
 
 ## Dataset
 There are two datasets used in the project
