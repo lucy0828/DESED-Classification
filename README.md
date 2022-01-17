@@ -1,5 +1,6 @@
 # DESED Classification
 Sound Event Classification for DESED Dataset and Activities of Daily Living Dataset with Deep Learning Models (Conv1D, Conv2D, LSTM)
+This code is based on [YOUTUBE](https://www.youtube.com/channel/UCEMuqW8dYhhbs4uXtcAaHvQ) video
 
 ## Dataset
 There are two datasets used in the project
